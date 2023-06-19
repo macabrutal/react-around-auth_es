@@ -1,14 +1,3 @@
-Around the U.S. project on React, featuring authorization and registration.
-implementación del registro y la autorización en el frontend de mi proyecto de React. "Alrededor de los EE.UU." 
-
-This repository will contain your own front-end project on React with added authorization and registration features.
-Start working with your previously built front end code from Sprint 13.
-
-All authorization, registration and token requests must go through to the server running on [https://register.nomoreparties.co](https://register.nomoreparties.co/).
-
-
-
-----
 
 # Around the U.S. project on React, con autorización y registro.
 
@@ -22,28 +11,31 @@ Proyecto 15:
 
 ## Funcionalidad
 
-- 
-- 
+- Registrar Usuarios
+- Iniciar Sesión
+- Cerrar Sesión
+- autentificación de usuarios
 
 
 ## Tecnologias Utilizadas
 
-- Node.js
-- Express.js
+- React JS
+- React Router
 - Linter: para encontrar errores
-- nodemon: La aplicación debe iniciarse con hot reload cuando se ejecuta el comando npm run dev
-- MMongoDB
-- Mongoose
+- Metodologia BEM
+
 
 ## Directorios
 
-`/controllers` — Carpeta de controladores para users y cards
+`/blocks` — Carpeta con archivos con hojas de estilos
 
-`/routes` — Carpeta de rutas para users y cards
+`/components` — Carpeta de componentes js
 
-`/models` — Carpeta de esquemas para user y card
+`/utils` — Carpeta con archivos auth.js / api.js
 
-## Rutas
+`/contexts` — Carpeta con archivo de contextos js
+
+`/images` — Carpeta con imágenes
 
 
 ## Ejecuta el Proyecto
