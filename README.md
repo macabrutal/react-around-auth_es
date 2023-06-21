@@ -5,8 +5,10 @@ Proyecto 15:
 
 ## Descripción general
 
-- Mi proyecto front-end en React "Alrededor de los EE.UU." con funciones de autorización y registro.
+- Mi proyecto full-stack "Alrededor de los EE.UU." tiene funciones de autorización y registro.
 - Todas las solicitudes de autorización, registro y token deben pasar por el servidor que se ejecuta en [https://register.nomoreparties.co](https://register.nomoreparties.co/).
+- Se implementaron 2 nuevas rutas para usuarios no autorizados en el archivo auth.js : /signup y /signin
+- Si un usuario no autorizado visita la aplicación, debería ser redirigido a la página de inicio de sesión, independientemente de la ruta desde la que accedió.
 
 
 ## Funcionalidad
@@ -15,6 +17,7 @@ Proyecto 15:
 - Iniciar Sesión
 - Cerrar Sesión
 - autentificación de usuarios
+- La funcionalidad de la aplicación estará disponible únicamente para usuarios autorizados a través de la ruta raíz /
 
 
 ## Tecnologias Utilizadas
@@ -23,6 +26,15 @@ Proyecto 15:
 - React Router
 - Linter: para encontrar errores
 - Metodologia BEM
+
+
+## Rutas:
+
+`/signup` — para el registro de usuarios >> register 
+
+`/signin` — para a autorización de usuarios >> authorize
+
+`/` — ruta raíz
 
 
 ## Directorios
