@@ -37,7 +37,7 @@ function App() {
 
   //Proyecto 15
   const [email, setEmail] = React.useState('');
-  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [stateInfoToolTip, setStateInfoToolTip] = React.useState(false);
   const history = useHistory();
 
@@ -52,14 +52,14 @@ function App() {
 
   //para comprobar el token del usuario almacenado en localStorage.setItem('jwt') de auth.js
   React.useEffect(() => {
-    if (loggedIn) {
+    if (isLoggedIn) {
       history.push("/");
     } else {
       getProfile();
       authorizeUser();
     }
 
-  }, [history, loggedIn]);
+  }, [history, isLoggedIn]);
 
   function getProfile() {
     api
@@ -78,11 +78,11 @@ function App() {
         .checkToken(token)
         .then((res) => {
           setEmail(res.data.email);
-          setLoggedIn(true);
+          setIsLoggedIn(true);
         })
         .catch((err) => {
           console.log(err);
-          setLoggedIn(false);
+          setIsLoggedIn(false);
         });
     }
   }
@@ -202,7 +202,7 @@ function App() {
 
   function handleLogout() {
     setEmail('');
-    setLoggedIn(false);
+    setIsLoggedIn(false);
     setCurrentUser({});
     localStorage.removeItem('jwt');
   }
@@ -227,7 +227,7 @@ function App() {
             <Register handleStateInfo={handleStateInfo} />
           </Route>
 
-          <ProtectedRoute path="/" loggedIn={loggedIn}>
+          <ProtectedRoute path="/" isLoggedIn={isLoggedIn}>
             <Main
               cards={cards}
               handelOpenPopup={() => {
@@ -243,7 +243,7 @@ function App() {
           </ProtectedRoute>
 
           <Route exact path="/">
-            {loggedIn ? <Redirect to="/" /> : <Redirect to="/signin" />}
+            {isLoggedIn ? <Redirect to="/" /> : <Redirect to="/signin" />}
           </Route>
         </Switch>
       </CurrentUserContext.Provider>
