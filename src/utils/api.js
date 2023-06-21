@@ -149,9 +149,9 @@ export class Api {
     });
   }
 
-    //5.MOSTRARLIKES DE 1 CARD
+  //5.MOSTRARLIKES DE 1 CARD
   //propiedad: likes
-  changeLikeCardStatus(cardId, isLiked){
+  changeLikeCardStatus(cardId, isLiked) {
     return isLiked ? this.addCardLike(cardId) : this.deleteCardLike(cardId);
   }
 

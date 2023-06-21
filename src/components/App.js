@@ -38,7 +38,7 @@ function App() {
   //Proyecto 15
   const [email, setEmail] = React.useState('');
   const [loggedIn, setLoggedIn] = React.useState(false);
-  const [stateInfoToolTip, setStateInfoToolTip]= React.useState(false); 
+  const [stateInfoToolTip, setStateInfoToolTip] = React.useState(false);
   const history = useHistory();
 
   React.useEffect(() => {
@@ -47,7 +47,7 @@ function App() {
       .then((json) => {
         setCards(json);
       })
-      .catch((error) => {});
+      .catch((error) => { });
   }, []);
 
   //para comprobar el token del usuario almacenado en localStorage.setItem('jwt') de auth.js
@@ -63,11 +63,11 @@ function App() {
 
   function getProfile() {
     api
-    .getProfileInfo()
-    .then((json) => {
-      setCurrentUser(json);
-    })
-    .catch((error) => {});
+      .getProfileInfo()
+      .then((json) => {
+        setCurrentUser(json);
+      })
+      .catch((error) => { });
   }
 
   function authorizeUser() {
@@ -185,7 +185,7 @@ function App() {
         .then((json) => {
           setCards(json);
         })
-        .catch((error) => {});
+        .catch((error) => { });
     }); //borra la card seleccionada
   }
 
@@ -224,7 +224,7 @@ function App() {
           </Route>
 
           <Route path="/signup">
-            <Register handleStateInfo={handleStateInfo}/>
+            <Register handleStateInfo={handleStateInfo} />
           </Route>
 
           <ProtectedRoute path="/" loggedIn={loggedIn}>
@@ -233,10 +233,10 @@ function App() {
               handelOpenPopup={() => {
                 setOpenPopup("profile");
               }}
-              handleEditAvatar={handleEditAvatar} 
-              handleEditProfile={handleEditProfile} 
-              handleClickAdd={handleClickAdd} 
-              handleClickImage={handleClickImage} 
+              handleEditAvatar={handleEditAvatar}
+              handleEditProfile={handleEditProfile}
+              handleClickAdd={handleClickAdd}
+              handleClickImage={handleClickImage}
               handleLikeCard={handleLikeCard}
               handleDeleteCard={handleDeleteCard}
             />

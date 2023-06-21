@@ -8,7 +8,7 @@ export default function Header(props) {
   return (
     <header className="header">
       <img className="header__logo" src={logo} alt="logo" />
-      {location.pathname ==='/signin' && (
+      {location.pathname === '/signin' && (
         <Link to="/signup">
           Regístrate
         </Link>
@@ -21,7 +21,7 @@ export default function Header(props) {
       )}
 
       {
-        location.pathname ==='/' &&
+        location.pathname === '/' &&
         <>
           <p>{props.email}</p>
           <button onClick={props.handleLogout}>Cerrar sesión</button>
