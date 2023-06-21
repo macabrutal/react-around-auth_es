@@ -220,7 +220,7 @@ function App() {
 
         <Switch>
           <Route exact path="/signin">
-            <Login handleLogin={handleLogin} />
+            <Login handleLogin={handleLogin} handleStateInfo={handleStateInfo} />
           </Route>
 
           <Route path="/signup">

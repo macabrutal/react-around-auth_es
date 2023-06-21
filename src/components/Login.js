@@ -21,11 +21,16 @@ export default function Login(props) {
     e.preventDefault();
     auth.authorize({ email, password })
       .then((res) => {
-        props.handleLogin()
-        history.push('/'); // Redirige al main
+        if (res.error) {
+          props.handleStateInfo(false);
+        } else {
+          props.handleLogin()
+          history.push('/'); // Redirige al main
+        }
       })
       .catch((err) => {
-        console.log(err); 
+        console.log(err);
+        props.handleStateInfo(false);
       });
   };
 
@@ -67,8 +72,8 @@ export default function Login(props) {
       </form>
 
       < Link to="/signup" className="login__link">
-      ¿Aún no eres miembro? Regístrate aquí
-        </Link>
+        ¿Aún no eres miembro? Regístrate aquí
+      </Link>
 
     </div>
   );
