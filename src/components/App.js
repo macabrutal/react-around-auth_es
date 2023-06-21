@@ -15,17 +15,17 @@ import EditAvatarPopup from "./EditAvatarPopup";
 
 import Login from "./Login";
 import Register from "./Register";
-import { Route, Switch, Redirect, withRouter } from "react-router-dom";
+import { Route, Switch, Redirect, withRouter, useHistory } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
 import * as auth from "../utils/auth";
 import InfoTooltip from "./InfoTooltip"
 
 function App() {
-  const [cards, setCards] = React.useState([]); //estado0 de usuarios
+  const [cards, setCards] = React.useState([]); //estado de usuarios
 
-  const [openPopup, setOpenPopup] = React.useState("");
+  const [openPopup, setOpenPopup] = React.useState('');
 
-  const [selectedCard, setSelectedCard] = React.useState(""); //para saber qué card está seleccionada
+  const [selectedCard, setSelectedCard] = React.useState(''); //para saber que card esta seleccionada
 
   const [errors, setErrors] = React.useState({
     profile: {},
@@ -36,9 +36,10 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
 
   //Proyecto 15
-  const [loggedIn, setLoggedIn] = React.useState(false);
   const [email, setEmail] = React.useState('');
+  const [loggedIn, setLoggedIn] = React.useState(false);
   const [stateInfoToolTip, setStateInfoToolTip]= React.useState(false); 
+  const history = useHistory();
 
   React.useEffect(() => {
     api
@@ -49,14 +50,42 @@ function App() {
       .catch((error) => {});
   }, []);
 
+  //para comprobar el token del usuario almacenado en localStorage.setItem('jwt') de auth.js
   React.useEffect(() => {
+    if (loggedIn) {
+      history.push("/");
+    } else {
+      getProfile();
+      authorizeUser();
+    }
+
+  }, [history, loggedIn]);
+
+  function getProfile() {
     api
-      .getProfileInfo()
-      .then((json) => {
-        setCurrentUser(json);
-      })
-      .catch((error) => {});
-  }, []);
+    .getProfileInfo()
+    .then((json) => {
+      setCurrentUser(json);
+    })
+    .catch((error) => {});
+  }
+
+  function authorizeUser() {
+    const token = localStorage.getItem("jwt");
+
+    if (token) {
+      auth
+        .checkToken(token)
+        .then((res) => {
+          setEmail(res.data.email);
+          setLoggedIn(true);
+        })
+        .catch((err) => {
+          console.log(err);
+          setLoggedIn(false);
+        });
+    }
+  }
 
   const imageRef = React.useRef();
 
@@ -167,34 +196,14 @@ function App() {
     });
   }
 
-  //para comprobar el token del usuario almacenado en localStorage.setItem('jwt') de auth.js
-  React.useEffect(() => {
-    const token = localStorage.getItem("jwt");
-    if (token) {
-      auth
-        .checkToken(token)
-        .then((data) => {
-          setCurrentUser(data);
-          setLoggedIn(true);
-        })
-        .catch((err) => {
-          console.log(err);
-          setLoggedIn(false);
-        });
-    } else {
-      setLoggedIn(false);
-      setStateInfoToolTip(false);
-    }
-  }, []);
-
   function handleLogin() {
-    setLoggedIn(true);
+    authorizeUser();
   }
 
   function handleLogout() {
-    setLoggedIn(false);
-    setCurrentUser(null);
     setEmail('');
+    setLoggedIn(false);
+    setCurrentUser({});
     localStorage.removeItem('jwt');
   }
 
@@ -207,7 +216,7 @@ function App() {
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
-        <Header  btnText="Sign up" handleLogout={handleLogout} email={email}/>
+        <Header handleLogout={handleLogout} email={email} />
 
         <Switch>
           <Route exact path="/signin">
